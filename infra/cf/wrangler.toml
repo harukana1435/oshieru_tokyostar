@@ -7,12 +7,12 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "oshieru-db"
-database_id = "YOUR_D1_DATABASE_ID"  # wrangler d1 create で取得したIDに置き換え
+database_id = "aa4d3b25-215a-48f8-9256-1fe734fa305c"
 
 [[kv_namespaces]]
 binding = "KV"
-id = "YOUR_KV_NAMESPACE_ID"          # wrangler kv:namespace create で取得したIDに置き換え
-preview_id = "YOUR_KV_PREVIEW_ID"    # wrangler kv:namespace create --preview で取得したIDに置き換え
+id = "decda47d94434294ad00a6c3b3fe7144"
+preview_id = "a40aad0cc123475baccb4f8cd57650ea"
 
 [[services]]
 binding = "SCORE_WORKER"

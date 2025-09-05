@@ -45,6 +45,11 @@ export const transactionSchema = z.object({
   sign: transactionSignSchema,
   purpose: transactionPurposeSchema,
   memo: z.string().optional(),
+  originalDescription: z.string().optional(),
+  isAutoCategorized: z.boolean().default(false),
+  isPending: z.boolean().default(false),
+  canEdit: z.boolean().default(true),
+  originalCode: z.number().optional(),
   eventAt: z.date(),
   createdAt: z.date(),
 });

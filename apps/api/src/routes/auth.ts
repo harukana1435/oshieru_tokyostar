@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { users } from '@oshieru/db/src/schema';
 import type { Env } from '../index';
 
-const auth = new Hono<{ Bindings: Env }>();
+const auth = new Hono<Env>();
 
 // 簡易ログイン（プロトタイプ用）
 auth.post('/login', async (c) => {

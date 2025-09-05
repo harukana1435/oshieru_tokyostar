@@ -1,0 +1,4 @@
+
+> @oshieru/types@0.1.0 type-check /Users/h-okano/Dev/softbank_hackason/packages/types
+> tsc --noEmit
+

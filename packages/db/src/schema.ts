@@ -26,6 +26,11 @@ export const transactions = sqliteTable('transactions', {
     enum: ['salary', 'ticket', 'goods', 'event', 'food', 'rent', 'utilities', 'transport', 'other'] 
   }).notNull(),
   memo: text('memo'),
+  originalDescription: text('original_description'), // 元の摘要
+  isAutoCategorized: integer('is_auto_categorized', { mode: 'boolean' }).notNull().default(false),
+  isPending: integer('is_pending', { mode: 'boolean' }).notNull().default(false),
+  canEdit: integer('can_edit', { mode: 'boolean' }).notNull().default(true),
+  originalCode: integer('original_code'), // 取引履歴通帳摘要コード
   eventAt: integer('event_at', { mode: 'timestamp_ms' }).notNull(),
   createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull().$defaultFn(() => new Date())
 });

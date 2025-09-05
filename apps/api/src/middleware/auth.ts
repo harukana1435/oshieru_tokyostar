@@ -1,7 +1,7 @@
 import type { Context, Next } from 'hono';
 import type { Env } from '../index';
 
-export const authMiddleware = async (c: Context<{ Bindings: Env }>, next: Next) => {
+export const authMiddleware = async (c: Context<Env>, next: Next) => {
   const sessionId = c.req.header('Authorization')?.replace('Bearer ', '');
   
   if (!sessionId) {

@@ -1,0 +1,4 @@
+
+> @oshieru/web@0.1.0 type-check /Users/h-okano/Dev/softbank_hackason/apps/web
+> tsc --noEmit
+

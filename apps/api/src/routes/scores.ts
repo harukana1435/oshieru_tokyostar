@@ -4,7 +4,7 @@ import { scores } from '@oshieru/db/src/schema';
 import type { Env } from '../index';
 import { authMiddleware } from '../middleware/auth';
 
-const scoresRoute = new Hono<{ Bindings: Env }>();
+const scoresRoute = new Hono<Env>();
 
 scoresRoute.use('*', authMiddleware);
 
@@ -66,7 +66,7 @@ scoresRoute.post('/calculate', async (c) => {
       throw new Error('Score calculation failed');
     }
     
-    const scoreResult = await scoreResponse.json();
+    const scoreResult = await scoreResponse.json() as any;
     
     // スコアをデータベースに保存
     const db = c.get('db');

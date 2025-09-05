@@ -4,7 +4,7 @@ import { rewards, userRewards } from '@oshieru/db/src/schema';
 import type { Env } from '../index';
 import { authMiddleware } from '../middleware/auth';
 
-const rewardsRoute = new Hono<{ Bindings: Env }>();
+const rewardsRoute = new Hono<Env>();
 
 rewardsRoute.use('*', authMiddleware);
 

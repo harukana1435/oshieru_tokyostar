@@ -1,73 +1,83 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { formatCurrency, getScoreColor } from '@/lib/utils'
+import { AccountDetailsModal } from './account-details-modal'
+import { TransactionEditModal } from './transaction-edit-modal'
 
-// モックデータ（実際のAPIからの取得をシミュレート）
+// 実際のダミーデータを使用（デモ用）
 const mockDashboardData = {
   user: {
-    id: 'user_demo',
-    email: 'demo@oshieru.com',
-    displayName: '推し活太郎',
+    id: 'user_10000001',
+    email: 'customer1@oshieru.com',
+    displayName: '顧客1',
     createdAt: new Date('2024-01-01'),
   },
   accounts: [
     {
-      id: 'acc_life_demo',
-      userId: 'user_demo',
+      id: 'acc_life_10000001',
+      userId: 'user_10000001',
       kind: 'life',
       name: '生活口座',
-      balanceCached: 250000,
+      balanceCached: 380000,
       createdAt: new Date('2024-01-01'),
     },
     {
-      id: 'acc_oshi_demo',
-      userId: 'user_demo',
+      id: 'acc_oshi_10000001',
+      userId: 'user_10000001',
       kind: 'oshi',
       name: '推し活口座',
-      balanceCached: 45000,
+      balanceCached: 0,
       createdAt: new Date('2024-01-01'),
     },
   ],
   latestScore: {
     id: 'score_1',
-    userId: 'user_demo',
-    score: 75,
+    userId: 'user_10000001',
+    score: 65,
     label: '安心',
-    snapshotAt: new Date('2024-02-01'),
+    snapshotAt: new Date('2024-07-31'),
     factors: {
       incomeRatioScore: 30,
       surplusScore: 25,
-      recommendedAmountScore: 20,
-      incomeRatio: 16.67,
-      surplusRatio: 0.83,
-      recommendedDeviation: 25.0,
+      recommendedAmountScore: 10,
+      incomeRatio: 15.0,
+      surplusRatio: 0.8,
+      recommendedDeviation: 20.0,
     },
   },
   recentTransactions: [
     {
-      id: 'tx_ticket_1',
-      accountId: 'acc_oshi_demo',
-      amount: 8000,
-      sign: 'out',
-      purpose: 'ticket',
-      memo: 'ライブチケット',
-      eventAt: new Date('2024-01-28'),
-      accountName: '推し活口座',
-      accountKind: 'oshi',
+      id: 'tx_recent_1',
+      accountId: 'acc_life_10000001',
+      amount: 380000,
+      sign: 'in' as const,
+      purpose: 'salary',
+      memo: '給与振込',
+      originalDescription: '給与振込',
+      isAutoCategorized: true,
+      isPending: false,
+      canEdit: true,
+      eventAt: new Date('2024-06-25'),
+      accountName: '生活口座',
+      accountKind: 'life',
     },
     {
-      id: 'tx_goods_1',
-      accountId: 'acc_oshi_demo',
-      amount: 3500,
-      sign: 'out',
-      purpose: 'goods',
-      memo: 'グッズ購入',
-      eventAt: new Date('2024-01-30'),
-      accountName: '推し活口座',
-      accountKind: 'oshi',
+      id: 'tx_recent_2',
+      accountId: 'acc_life_10000001',
+      amount: 9000,
+      sign: 'out' as const,
+      purpose: 'other',
+      memo: 'クレジットカード',
+      originalDescription: 'クレジットカード',
+      isAutoCategorized: false,
+      isPending: true,
+      canEdit: true,
+      eventAt: new Date('2024-06-10'),
+      accountName: '生活口座',
+      accountKind: 'life',
     },
   ],
   availableRewards: [
@@ -90,18 +100,179 @@ const mockDashboardData = {
   ],
 }
 
-export function Dashboard() {
+interface DashboardProps {
+  onLogout?: () => void;
+}
+
+export function Dashboard({ onLogout }: DashboardProps) {
   const [data, setData] = useState(mockDashboardData)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [selectedAccount, setSelectedAccount] = useState<any>(null)
+  const [editingTransaction, setEditingTransaction] = useState<any>(null)
+  const [currentUser, setCurrentUser] = useState<any>(null)
+
+  // ユーザー固有の取引データを生成
+  const generateUserTransactions = (user: any) => {
+    const baseTransactions = [
+      {
+        id: `tx_${user.id}_salary`,
+        accountId: `acc_life_${user.id.split('_')[1]}`,
+        amount: user.id.includes('10000001') ? 380000 : user.id.includes('10000002') ? 777777 : 150000,
+        sign: 'in' as const,
+        purpose: 'salary',
+        memo: '給与振込',
+        originalDescription: '給与振込',
+        isAutoCategorized: true,
+        isPending: false,
+        canEdit: true,
+        eventAt: new Date('2024-06-25'),
+        accountName: '生活口座',
+        accountKind: 'life',
+      },
+      {
+        id: `tx_${user.id}_credit`,
+        accountId: `acc_life_${user.id.split('_')[1]}`,
+        amount: user.id.includes('10000001') ? 9000 : user.id.includes('10000002') ? 6000 : 3000,
+        sign: 'out' as const,
+        purpose: 'other',
+        memo: 'クレジットカード',
+        originalDescription: 'クレジットカード',
+        isAutoCategorized: false,
+        isPending: true,
+        canEdit: true,
+        eventAt: new Date('2024-06-10'),
+        accountName: '生活口座',
+        accountKind: 'life',
+      }
+    ]
+
+    // 顧客3の場合は追加の小額取引を追加
+    if (user.id.includes('10000003')) {
+      baseTransactions.push({
+        id: `tx_${user.id}_small1`,
+        accountId: `acc_life_${user.id.split('_')[1]}`,
+        amount: 2400,
+        sign: 'in' as const,
+        purpose: 'other',
+        memo: '振込',
+        originalDescription: '振込',
+        isAutoCategorized: false,
+        isPending: true,
+        canEdit: true,
+        eventAt: new Date('2024-06-03'),
+        accountName: '生活口座',
+        accountKind: 'life',
+      })
+    }
+
+    return baseTransactions
+  }
+
+  // 実際のユーザーデータを取得
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        // ローカルストレージからユーザー情報を取得
+        const storedUser = localStorage.getItem('currentUser')
+        if (storedUser) {
+          const user = JSON.parse(storedUser)
+          setCurrentUser(user)
+          
+          // 実際のAPIからダッシュボードデータを取得（将来の実装用）
+          // const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://oshieru-api.harukana1435.workers.dev'
+          // const response = await fetch(`${apiUrl}/dashboard`, {
+          //   headers: { 'Authorization': `Bearer ${localStorage.getItem('sessionId')}` }
+          // })
+          
+                     // 現在はユーザー情報を使ってモックデータを更新
+           const userTransactions = generateUserTransactions(user)
+           
+           setData(prevData => ({
+             ...prevData,
+             user: {
+               id: user.id,
+               email: user.email,
+               displayName: user.displayName,
+               createdAt: new Date('2024-01-01'),
+             },
+             accounts: [
+               {
+                 id: `acc_life_${user.id.split('_')[1]}`,
+                 userId: user.id,
+                 kind: 'life',
+                 name: '生活口座',
+                 balanceCached: user.lifeBalance,
+                 createdAt: new Date('2024-01-01'),
+               },
+               {
+                 id: `acc_oshi_${user.id.split('_')[1]}`,
+                 userId: user.id,
+                 kind: 'oshi',
+                 name: '推し活口座',
+                 balanceCached: user.oshiBalance,
+                 createdAt: new Date('2024-01-01'),
+               },
+             ],
+             // スコアをユーザーに応じて調整
+             latestScore: {
+               ...prevData.latestScore,
+               userId: user.id,
+               score: user.id.includes('10000001') ? 60 : user.id.includes('10000002') ? 70 : 80,
+               label: user.id.includes('10000001') ? '安心' : user.id.includes('10000002') ? '安心' : 'とても安心',
+             },
+             // ユーザー固有の取引データ
+             recentTransactions: userTransactions,
+           }))
+        }
+      } catch (error) {
+        console.error('Failed to load user data:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadUserData()
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('sessionId')
     localStorage.removeItem('userEmail')
-    window.location.reload()
+    localStorage.removeItem('currentUser')
+    
+    if (onLogout) {
+      onLogout()
+    } else {
+      // フォールバック：ページをリロード
+      window.location.reload()
+    }
+  }
+
+  const handleTransactionUpdate = (updatedTransaction: any) => {
+    // 取引データを更新（実際のAPIコールの代わりにローカル状態を更新）
+    setData(prevData => ({
+      ...prevData,
+      recentTransactions: prevData.recentTransactions.map(tx => 
+        tx.id === updatedTransaction.id ? updatedTransaction : tx
+      )
+    }))
+    
+    // 実際の実装では、ここでAPIを呼び出してサーバーのデータを更新
+    console.log('Transaction updated:', updatedTransaction)
   }
 
   const lifeAccount = data.accounts.find(acc => acc.kind === 'life')
   const oshiAccount = data.accounts.find(acc => acc.kind === 'oshi')
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-muted-foreground">ダッシュボードを読み込み中...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
@@ -165,7 +336,7 @@ export function Dashboard() {
       {/* 口座残高 */}
       <div className="grid md:grid-cols-2 gap-6">
         {lifeAccount && (
-          <Card>
+          <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedAccount(lifeAccount)}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>💰 {lifeAccount.name}</span>
@@ -176,12 +347,15 @@ export function Dashboard() {
               <CardDescription>
                 日常の収入・支出を管理
               </CardDescription>
+              <p className="text-xs text-blue-600 mt-2">
+                📊 詳細を見る
+              </p>
             </CardHeader>
           </Card>
         )}
 
         {oshiAccount && (
-          <Card>
+          <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedAccount(oshiAccount)}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>✨ {oshiAccount.name}</span>
@@ -192,6 +366,9 @@ export function Dashboard() {
               <CardDescription>
                 推し活専用の予算管理
               </CardDescription>
+              <p className="text-xs text-blue-600 mt-2">
+                📊 詳細を見る
+              </p>
             </CardHeader>
           </Card>
         )}
@@ -202,7 +379,7 @@ export function Dashboard() {
         <CardHeader>
           <CardTitle>📊 最近の取引</CardTitle>
           <CardDescription>
-            直近の推し活関連取引
+            自動振り分けと保留中の取引
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -210,27 +387,73 @@ export function Dashboard() {
             {data.recentTransactions.map((transaction) => (
               <div
                 key={transaction.id}
-                className="flex justify-between items-center p-3 rounded-lg bg-muted/50"
+                className={`p-3 rounded-lg border ${
+                  transaction.isPending ? 'bg-yellow-50 border-yellow-200' : 
+                  transaction.isAutoCategorized ? 'bg-green-50 border-green-200' : 'bg-muted/50'
+                }`}
               >
-                <div>
-                  <p className="font-medium">{transaction.memo}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {transaction.eventAt.toLocaleDateString('ja-JP')} • {transaction.accountName}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className={`font-medium ${
-                    transaction.sign === 'out' ? 'text-red-600' : 'text-green-600'
-                  }`}>
-                    {transaction.sign === 'out' ? '-' : '+'}{formatCurrency(transaction.amount)}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {transaction.purpose}
-                  </p>
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-medium">{transaction.memo}</p>
+                      {transaction.isAutoCategorized && (
+                        <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">
+                          自動振り分け済み
+                        </span>
+                      )}
+                      {transaction.isPending && (
+                        <span className="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full">
+                          保留中
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {transaction.eventAt.toLocaleDateString('ja-JP')} • {transaction.accountName}
+                    </p>
+                    {transaction.isPending && (
+                      <p className="text-xs text-orange-600 mt-1">
+                        ⚠️ 用途の手動振り分けが必要です
+                      </p>
+                    )}
+                  </div>
+                  <div className="text-right">
+                    <p className={`font-medium ${
+                      transaction.sign === 'out' ? 'text-red-600' : 'text-green-600'
+                    }`}>
+                      {transaction.sign === 'out' ? '-' : '+'}{formatCurrency(transaction.amount)}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {transaction.purpose}
+                    </p>
+                    {transaction.canEdit && (
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="mt-1 h-6 text-xs"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setEditingTransaction(transaction)
+                        }}
+                      >
+                        編集
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
+          
+          {/* 保留中の取引がある場合の案内 */}
+          {data.recentTransactions.some(tx => tx.isPending) && (
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-700">
+                💡 <strong>保留中の取引があります</strong><br />
+                クレジットカードや振込などの取引は、用途を手動で設定してください。
+                正確な振り分けにより、より精密な推し活安心度スコアが算出されます。
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -265,6 +488,23 @@ export function Dashboard() {
           </div>
         </CardContent>
       </Card>
+
+      {/* モーダル */}
+      {selectedAccount && (
+        <AccountDetailsModal
+          account={selectedAccount}
+          transactions={data.recentTransactions}
+          onClose={() => setSelectedAccount(null)}
+        />
+      )}
+
+      {editingTransaction && (
+        <TransactionEditModal
+          transaction={editingTransaction}
+          onSave={handleTransactionUpdate}
+          onClose={() => setEditingTransaction(null)}
+        />
+      )}
     </div>
   )
 } 

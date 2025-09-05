@@ -1,102 +1,74 @@
 import { drizzle } from 'drizzle-orm/d1';
 import { users, accounts, transactions, rewards, scores } from './src/schema';
+import * as fs from 'fs';
+import * as path from 'path';
 
-// サンプルデータ
-const sampleUsers = [
-  {
-    id: 'user_demo',
-    email: 'demo@oshieru.com',
-    displayName: '推し活太郎',
-  },
-];
+// 実際のダミーデータを読み込み
+const dummyDataPath = path.join(__dirname, 'processed_dummy_data.json');
+const dummyData = JSON.parse(fs.readFileSync(dummyDataPath, 'utf-8'));
 
-const sampleAccounts = [
-  {
-    id: 'acc_life_demo',
-    userId: 'user_demo',
-    kind: 'life' as const,
-    name: '生活口座',
-    balanceCached: 250000,
-  },
-  {
-    id: 'acc_oshi_demo',
-    userId: 'user_demo',
-    kind: 'oshi' as const,
-    name: '推し活口座',
-    balanceCached: 45000,
-  },
-];
+// データ変換関数
+function convertDummyData() {
+  const users: any[] = [];
+  const accounts: any[] = [];
+  const transactions: any[] = [];
+  
+  for (const [customerId, customerData] of Object.entries(dummyData as any)) {
+    const userId = `user_${customerId}`;
+    const data = customerData as any;
+    
+    // ユーザー作成
+    users.push({
+      id: userId,
+      email: data.email,
+      displayName: data.name,
+    });
+    
+    // 口座作成（生活口座）
+    const lifeAccountId = `acc_life_${customerId}`;
+    accounts.push({
+      id: lifeAccountId,
+      userId: userId,
+      kind: 'life' as const,
+      name: '生活口座',
+      balanceCached: data.life_balance,
+    });
+    
+    // 口座作成（推し活口座）
+    const oshiAccountId = `acc_oshi_${customerId}`;
+    accounts.push({
+      id: oshiAccountId,
+      userId: userId,
+      kind: 'oshi' as const,
+      name: '推し活口座',
+      balanceCached: data.oshi_balance,
+    });
+    
+    // 取引データ変換
+    data.transactions.forEach((tx: any, index: number) => {
+      const accountId = tx.account_type === 'oshi' ? oshiAccountId : lifeAccountId;
+      
+      transactions.push({
+        id: `tx_${customerId}_${index}`,
+        accountId: accountId,
+        amount: tx.amount,
+        sign: tx.type === 'income' ? 'in' as const : 'out' as const,
+        purpose: tx.purpose as any,
+        memo: tx.description,
+        originalDescription: tx.description,
+        isAutoCategorized: tx.is_auto_categorized,
+        isPending: tx.is_pending,
+        canEdit: tx.can_edit,
+        originalCode: tx.original_code,
+        eventAt: new Date(tx.date),
+      });
+    });
+  }
+  
+  return { users, accounts, transactions };
+}
 
-const sampleTransactions = [
-  // 収入
-  {
-    id: 'tx_salary_1',
-    accountId: 'acc_life_demo',
-    amount: 300000,
-    sign: 'in' as const,
-    purpose: 'salary' as const,
-    memo: '1月分給与',
-    eventAt: new Date('2024-01-25'),
-  },
-  // 推し活口座への振替
-  {
-    id: 'tx_transfer_1',
-    accountId: 'acc_life_demo',
-    amount: 50000,
-    sign: 'out' as const,
-    purpose: 'other' as const,
-    memo: '推し活口座への振替',
-    eventAt: new Date('2024-01-26'),
-  },
-  {
-    id: 'tx_transfer_2',
-    accountId: 'acc_oshi_demo',
-    amount: 50000,
-    sign: 'in' as const,
-    purpose: 'other' as const,
-    memo: '生活口座からの振替',
-    eventAt: new Date('2024-01-26'),
-  },
-  // 推し活支出
-  {
-    id: 'tx_ticket_1',
-    accountId: 'acc_oshi_demo',
-    amount: 8000,
-    sign: 'out' as const,
-    purpose: 'ticket' as const,
-    memo: 'ライブチケット',
-    eventAt: new Date('2024-01-28'),
-  },
-  {
-    id: 'tx_goods_1',
-    accountId: 'acc_oshi_demo',
-    amount: 3500,
-    sign: 'out' as const,
-    purpose: 'goods' as const,
-    memo: 'グッズ購入',
-    eventAt: new Date('2024-01-30'),
-  },
-  // 生活費
-  {
-    id: 'tx_rent_1',
-    accountId: 'acc_life_demo',
-    amount: 80000,
-    sign: 'out' as const,
-    purpose: 'rent' as const,
-    memo: '家賃',
-    eventAt: new Date('2024-01-27'),
-  },
-  {
-    id: 'tx_food_1',
-    accountId: 'acc_life_demo',
-    amount: 40000,
-    sign: 'out' as const,
-    purpose: 'food' as const,
-    memo: '食費',
-    eventAt: new Date('2024-01-31'),
-  },
-];
-
+// 特典データ
 const sampleRewards = [
   {
     id: 'reward_1',
@@ -132,49 +104,53 @@ const sampleRewards = [
   },
 ];
 
-const sampleScores = [
-  {
-    id: 'score_1',
-    userId: 'user_demo',
-    score: 75,
-    label: '安心',
-    snapshotAt: new Date('2024-02-01'),
-    factors: JSON.stringify({
-      incomeRatioScore: 30,
-      surplusScore: 25,
-      recommendedAmountScore: 20,
-      incomeRatio: 16.67,
-      surplusRatio: 0.83,
-      recommendedDeviation: 25.0,
-    }),
-  },
-];
-
 export async function seedDatabase(db: any) {
-  console.log('Seeding database...');
+  console.log('Seeding database with real dummy data...');
   
   try {
+    const { users: realUsers, accounts: realAccounts, transactions: realTransactions } = convertDummyData();
+    
     // ユーザー作成
-    await db.insert(users).values(sampleUsers);
-    console.log('✓ Users seeded');
+    await db.insert(users).values(realUsers);
+    console.log(`✓ ${realUsers.length} Users seeded`);
     
     // 口座作成
-    await db.insert(accounts).values(sampleAccounts);
-    console.log('✓ Accounts seeded');
+    await db.insert(accounts).values(realAccounts);
+    console.log(`✓ ${realAccounts.length} Accounts seeded`);
     
     // 取引作成
-    await db.insert(transactions).values(sampleTransactions);
-    console.log('✓ Transactions seeded');
+    for (let i = 0; i < realTransactions.length; i += 50) {
+      const batch = realTransactions.slice(i, i + 50);
+      await db.insert(transactions).values(batch);
+      console.log(`✓ Transactions batch ${Math.floor(i/50) + 1} seeded (${batch.length} records)`);
+    }
     
     // 特典作成
     await db.insert(rewards).values(sampleRewards);
     console.log('✓ Rewards seeded');
     
-    // スコア作成
+    // サンプルスコア作成（各顧客に1つずつ）
+    const sampleScores = realUsers.map((user, index) => ({
+      id: `score_${user.id}`,
+      userId: user.id,
+      score: 60 + (index * 10), // 60, 70, 80点で差をつける
+      label: index === 0 ? '安心' : index === 1 ? '安心' : 'とても安心',
+      snapshotAt: new Date('2024-07-31'),
+      factors: JSON.stringify({
+        incomeRatioScore: 30 + (index * 5),
+        surplusScore: 20 + (index * 5),
+        recommendedAmountScore: 10 + (index * 5),
+        incomeRatio: 15.0 + (index * 2),
+        surplusRatio: 0.8 + (index * 0.1),
+        recommendedDeviation: 20.0 - (index * 5),
+      }),
+    }));
+    
     await db.insert(scores).values(sampleScores);
-    console.log('✓ Scores seeded');
+    console.log('✓ Sample scores seeded');
     
     console.log('Database seeding completed successfully!');
+    console.log(`Total: ${realUsers.length} users, ${realAccounts.length} accounts, ${realTransactions.length} transactions`);
   } catch (error) {
     console.error('Error seeding database:', error);
     throw error;

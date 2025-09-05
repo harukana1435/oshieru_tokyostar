@@ -1,4 +1,6 @@
-import { Suspense } from 'react'
+'use client'
+
+import React, { Suspense, useState, useEffect } from 'react'
 import { Dashboard } from '@/components/dashboard'
 import { LoginForm } from '@/components/login-form'
 import { Loading } from '@/components/ui/loading'
@@ -23,12 +25,38 @@ export default function Home() {
 }
 
 function AuthWrapper() {
-  // 簡易的な認証状態管理（本来はコンテキストやstate管理ライブラリを使用）
-  const sessionId = typeof window !== 'undefined' ? localStorage.getItem('sessionId') : null;
-  
-  if (!sessionId) {
-    return <LoginForm />
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // クライアントサイドでのみ実行
+    const checkAuth = () => {
+      const sessionId = localStorage.getItem('sessionId');
+      setIsAuthenticated(!!sessionId);
+      setIsLoading(false);
+    };
+
+    checkAuth();
+
+    // ストレージの変更を監視
+    const handleStorageChange = () => {
+      checkAuth();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  if (isLoading) {
+    return <Loading />
   }
   
-  return <Dashboard />
+  if (!isAuthenticated) {
+    return <LoginForm onLoginSuccess={() => setIsAuthenticated(true)} />
+  }
+  
+  return <Dashboard onLogout={() => setIsAuthenticated(false)} />
 } 

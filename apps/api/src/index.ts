@@ -10,14 +10,21 @@ import { scoreRoutes } from './routes/scores';
 import { rewardRoutes } from './routes/rewards';
 import { dashboardRoutes } from './routes/dashboard';
 import { analysisRoutes } from './routes/analysis';
+import { usersRoute } from './routes/users';
 
-export interface Env {
-  DB: D1Database;
-  SCORE_WORKER: Fetcher;
-  KV: KVNamespace;
+export type Env = {
+  Bindings: {
+    DB: D1Database;
+    SCORE_WORKER: Fetcher;
+    KV: KVNamespace;
+  };
+  Variables: {
+    db: ReturnType<typeof drizzle>;
+    userId: string;
+  };
 }
 
-const app = new Hono<{ Bindings: Env }>();
+const app = new Hono<Env>();
 
 // Middleware
 app.use('*', cors());
@@ -47,6 +54,7 @@ app.route('/scores', scoreRoutes);
 app.route('/rewards', rewardRoutes);
 app.route('/dashboard', dashboardRoutes);
 app.route('/analysis', analysisRoutes);
+app.route('/users', usersRoute);
 
 // Error handling
 app.onError((err, c) => {

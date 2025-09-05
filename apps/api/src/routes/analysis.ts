@@ -4,7 +4,7 @@ import { transactions, accounts } from '@oshieru/db/src/schema';
 import type { Env } from '../index';
 import { authMiddleware } from '../middleware/auth';
 
-const analysisRoute = new Hono<{ Bindings: Env }>();
+const analysisRoute = new Hono<Env>();
 
 analysisRoute.use('*', authMiddleware);
 

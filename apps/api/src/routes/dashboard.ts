@@ -4,7 +4,7 @@ import { users, accounts, scores, transactions, rewards, userRewards } from '@os
 import type { Env } from '../index';
 import { authMiddleware } from '../middleware/auth';
 
-const dashboardRoute = new Hono<{ Bindings: Env }>();
+const dashboardRoute = new Hono<Env>();
 
 dashboardRoute.use('*', authMiddleware);
 

@@ -4,7 +4,7 @@ import { accounts } from '@oshieru/db/src/schema';
 import type { Env } from '../index';
 import { authMiddleware } from '../middleware/auth';
 
-const accountsRoute = new Hono<{ Bindings: Env }>();
+const accountsRoute = new Hono<Env>();
 
 // 認証ミドルウェアを適用
 accountsRoute.use('*', authMiddleware);
