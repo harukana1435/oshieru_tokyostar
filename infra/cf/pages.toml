@@ -1,0 +1,18 @@
+# Cloudflare Pages Configuration for Next.js
+[build]
+command = "cd ../../apps/web && npm run build"
+publish = "../../apps/web/.next"
+
+[build.environment]
+NODE_VERSION = "18"
+NPM_VERSION = "8"
+
+# Environment variables for Pages
+[env]
+NEXT_PUBLIC_API_URL = "https://oshieru-api.your-subdomain.workers.dev"
+
+[env.preview]
+NEXT_PUBLIC_API_URL = "https://oshieru-api.your-subdomain.workers.dev"
+
+[env.production]
+NEXT_PUBLIC_API_URL = "https://oshieru-api.your-subdomain.workers.dev" 

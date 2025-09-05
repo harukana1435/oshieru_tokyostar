@@ -1,0 +1,23 @@
+# API Worker Configuration
+name = "oshieru-api"
+main = "apps/api/src/index.ts"
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "oshieru-db"
+database_id = "YOUR_D1_DATABASE_ID"  # wrangler d1 create で取得したIDに置き換え
+
+[[kv_namespaces]]
+binding = "KV"
+id = "YOUR_KV_NAMESPACE_ID"          # wrangler kv:namespace create で取得したIDに置き換え
+preview_id = "YOUR_KV_PREVIEW_ID"    # wrangler kv:namespace create --preview で取得したIDに置き換え
+
+[[services]]
+binding = "SCORE_WORKER"
+service = "oshieru-score"
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production" 

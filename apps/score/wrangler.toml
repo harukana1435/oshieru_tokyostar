@@ -1,0 +1,11 @@
+# Score Worker Configuration
+name = "oshieru-score"
+main = "src/main.py"
+compatibility_date = "2024-01-15"
+
+[python]
+# Python Workerの設定
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production" 

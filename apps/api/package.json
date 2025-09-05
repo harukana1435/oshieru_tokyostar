@@ -1,0 +1,25 @@
+{
+  "name": "@oshieru/api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "tsc",
+    "deploy": "wrangler deploy",
+    "lint": "eslint . --max-warnings 0",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@oshieru/db": "workspace:*",
+    "@oshieru/types": "workspace:*",
+    "drizzle-orm": "^0.29.5",
+    "hono": "^3.12.12"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240129.0",
+    "@oshieru/config": "workspace:*",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.28.2"
+  }
+}
