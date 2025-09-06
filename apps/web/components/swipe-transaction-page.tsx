@@ -384,25 +384,10 @@ export function SwipeTransactionPage({ onBack, onUpdate }: SwipeTransactionPageP
         </div>
       </div>
 
-      {/* 操作説明 */}
-      <div className="text-center space-y-4">
-        <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-          <div className="flex items-center justify-center gap-2 text-blue-700 font-medium mb-2">
-            <Hand className="w-5 h-5" />
-            <span>操作方法</span>
-          </div>
-          <div className="text-sm text-blue-600 space-y-1">
-            <p>• カードを<strong>左にスワイプ</strong>で生活口座</p>
-            <p>• カードを<strong>右にスワイプ</strong>で推し活口座</p>
-            <p>• または下のボタンでも操作できます</p>
-          </div>
-        </div>
-        
+
         {/* スワイプ操作説明 */}
         <div className="mt-8 pt-6 border-t border-gray-100">
           <div className="bg-gray-50 rounded-2xl p-6 mb-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">スワイプで振り分け</h3>
-            
 
 
             <div className="grid grid-cols-2 gap-4 text-center text-sm">
@@ -454,6 +439,5 @@ export function SwipeTransactionPage({ onBack, onUpdate }: SwipeTransactionPageP
           </div>
         </div>
       </div>
-    </div>
   )
 } 

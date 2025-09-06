@@ -93,11 +93,21 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
     }
   }
 
-  const filteredTransactions = transactions.filter(tx => {
-    if (showPendingOnly && !tx.isPending) return false
-    if (filterAccount !== 'all' && tx.accountKind !== filterAccount) return false
-    return true
-  })
+  const filteredAndSortedTransactions = transactions
+    .filter(tx => {
+      if (showPendingOnly && !tx.isPending) return false
+      if (filterAccount !== 'all' && tx.accountKind !== filterAccount) return false
+      return true
+    })
+    .sort((a, b) => {
+      let comparison = 0
+      if (sortBy === 'date') {
+        comparison = new Date(a.eventAt).getTime() - new Date(b.eventAt).getTime()
+      } else if (sortBy === 'amount') {
+        comparison = a.amount - b.amount
+      }
+      return sortOrder === 'desc' ? -comparison : comparison
+    })
 
   const pendingCount = transactions.filter(tx => tx.isPending).length
 
@@ -207,8 +217,8 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                   onClick={() => setFilterAccount('all')}
                   className={`rounded-none border-0 ${
                     filterAccount === 'all' 
-                      ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      ? 'bg-gray-900 text-white hover:bg-gray-800 active:bg-gray-950' 
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200'
                   }`}
                 >
                   全て
@@ -218,8 +228,8 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                   onClick={() => setFilterAccount('life')}
                   className={`rounded-none border-x border-y-0 ${
                     filterAccount === 'life' 
-                      ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      ? 'bg-gray-900 text-white hover:bg-gray-800 active:bg-gray-950' 
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200'
                   }`}
                 >
                   生活
@@ -229,8 +239,8 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                   onClick={() => setFilterAccount('oshi')}
                   className={`rounded-none border-0 ${
                     filterAccount === 'oshi' 
-                      ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      ? 'bg-gray-900 text-white hover:bg-gray-800 active:bg-gray-950' 
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200'
                   }`}
                 >
                   推し活
@@ -245,8 +255,8 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                 size="sm"
                 onClick={() => setSortBy('date')}
                 className={sortBy === 'date' 
-                  ? 'bg-gray-900 text-white hover:bg-gray-800 border-gray-900' 
-                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900'
+                  ? 'bg-gray-900 text-white hover:bg-gray-800 active:bg-gray-950 border-gray-900' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200'
                 }
               >
                 日付順
@@ -255,8 +265,8 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                 size="sm"
                 onClick={() => setSortBy('amount')}
                 className={sortBy === 'amount' 
-                  ? 'bg-gray-900 text-white hover:bg-gray-800 border-gray-900' 
-                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900'
+                  ? 'bg-gray-900 text-white hover:bg-gray-800 active:bg-gray-950 border-gray-900' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200'
                 }
               >
                 金額順
@@ -264,7 +274,7 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
               <Button
                 size="sm"
                 onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                className="bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900"
+                className="bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200"
               >
                 {sortOrder === 'desc' ? <SortDesc className="w-4 h-4" /> : <SortAsc className="w-4 h-4" />}
               </Button>
@@ -281,8 +291,8 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
               size="sm"
               className={`flex items-center gap-2 ${
                 showPendingOnly 
-                  ? 'bg-gray-900 text-white hover:bg-gray-800 border-gray-900' 
-                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900'
+                  ? 'bg-gray-900 text-white hover:bg-gray-800 active:bg-gray-950 border-gray-900' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200'
               }`}
             >
               <Filter className="w-4 h-4" />
@@ -291,13 +301,13 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
           </div>
           
           <div className="space-y-3">
-            {filteredTransactions.length === 0 ? (
+            {filteredAndSortedTransactions.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
                 <Search className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <p>条件に合う取引がありません</p>
               </div>
             ) : (
-              filteredTransactions.map((transaction) => (
+              filteredAndSortedTransactions.map((transaction: Transaction) => (
                 <div
                   key={transaction.id}
                   className={`p-4 rounded-lg border transition-colors ${
