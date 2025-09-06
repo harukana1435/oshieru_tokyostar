@@ -403,23 +403,7 @@ export function SwipeTransactionPage({ onBack, onUpdate }: SwipeTransactionPageP
           <div className="bg-gray-50 rounded-2xl p-6 mb-6">
             <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">スワイプで振り分け</h3>
             
-            {/* スワイプヒント */}
-            <div className="bg-white rounded-xl p-4 border-2 border-dashed border-gray-300 mb-4">
-              <div className="flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2 text-green-600">
-                  <ArrowLeft className="w-5 h-5" />
-                  <span className="font-semibold">左にスワイプ</span>
-                </div>
-                <div className="text-gray-500 font-medium text-center">
-                  <div className="text-xs">カードを</div>
-                  <div>← → </div>
-                </div>
-                <div className="flex items-center gap-2 text-purple-600">
-                  <span className="font-semibold">右にスワイプ</span>
-                  <ArrowRight className="w-5 h-5" />
-                </div>
-              </div>
-            </div>
+
 
             <div className="grid grid-cols-2 gap-4 text-center text-sm">
               <div className="flex flex-col items-center gap-2">
