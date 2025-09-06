@@ -177,14 +177,14 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
             <div className="flex flex-wrap gap-3">
               <Button
                 onClick={onBatchCategorization}
-                className="bg-gray-900 hover:bg-gray-800 text-white flex items-center gap-2 shadow-lg"
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white flex items-center gap-2 shadow-lg"
               >
                 <ArrowUpDown className="w-4 h-4" />
                 一括振り分け
               </Button>
               <Button
                 onClick={onSwipeMode}
-                className="bg-gray-800 hover:bg-gray-700 text-white flex items-center gap-2 shadow-lg"
+                className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white flex items-center gap-2 shadow-lg"
               >
                 <CreditCard className="w-4 h-4" />
                 スワイプで振り分け
@@ -203,37 +203,34 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
               <span className="text-sm font-medium">口座:</span>
               <div className="flex rounded-lg border overflow-hidden">
                 <Button
-                  variant={filterAccount === 'all' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterAccount('all')}
-                  className={`rounded-none ${
+                  className={`rounded-none border-0 ${
                     filterAccount === 'all' 
                       ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                      : 'bg-transparent text-gray-600 hover:bg-gray-100'
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`}
                 >
                   全て
                 </Button>
                 <Button
-                  variant={filterAccount === 'life' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterAccount('life')}
-                  className={`rounded-none border-x ${
+                  className={`rounded-none border-x border-y-0 ${
                     filterAccount === 'life' 
                       ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                      : 'bg-transparent text-gray-600 hover:bg-gray-100'
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`}
                 >
                   生活
                 </Button>
                 <Button
-                  variant={filterAccount === 'oshi' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterAccount('oshi')}
-                  className={`rounded-none ${
+                  className={`rounded-none border-0 ${
                     filterAccount === 'oshi' 
                       ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                      : 'bg-transparent text-gray-600 hover:bg-gray-100'
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`}
                 >
                   推し活
@@ -245,32 +242,29 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
             <div className="flex items-center gap-2">
               <ArrowUpDown className="w-4 h-4 text-gray-500" />
               <Button
-                variant={sortBy === 'date' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSortBy('date')}
                 className={sortBy === 'date' 
-                  ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100'
+                  ? 'bg-gray-900 text-white hover:bg-gray-800 border-gray-900' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900'
                 }
               >
                 日付順
               </Button>
               <Button
-                variant={sortBy === 'amount' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSortBy('amount')}
                 className={sortBy === 'amount' 
-                  ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100'
+                  ? 'bg-gray-900 text-white hover:bg-gray-800 border-gray-900' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900'
                 }
               >
                 金額順
               </Button>
               <Button
-                variant="outline"
                 size="sm"
                 onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                className="bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100"
+                className="bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900"
               >
                 {sortOrder === 'desc' ? <SortDesc className="w-4 h-4" /> : <SortAsc className="w-4 h-4" />}
               </Button>
@@ -284,12 +278,11 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
             <h4 className="font-semibold text-gray-900">取引履歴</h4>
             <Button
               onClick={() => setShowPendingOnly(!showPendingOnly)}
-              variant={showPendingOnly ? "default" : "outline"}
               size="sm"
               className={`flex items-center gap-2 ${
                 showPendingOnly 
-                  ? 'bg-gray-900 text-white hover:bg-gray-800' 
-                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100'
+                  ? 'bg-gray-900 text-white hover:bg-gray-800 border-gray-900' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100 hover:text-gray-900'
               }`}
             >
               <Filter className="w-4 h-4" />
