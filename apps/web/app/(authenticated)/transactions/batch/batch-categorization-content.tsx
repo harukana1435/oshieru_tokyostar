@@ -326,7 +326,7 @@ export function BatchCategorizationContent() {
                       onClick={() => updateTransaction(transaction.id, 'selectedAccount', 'life')}
                       className={`p-3 rounded-lg border-2 transition-all ${
                         transaction.selectedAccount === 'life'
-                          ? 'border-green-500 bg-green-50 text-green-700'
+                          ? 'border-gray-800 bg-gray-100 text-gray-800'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -339,7 +339,7 @@ export function BatchCategorizationContent() {
                       onClick={() => updateTransaction(transaction.id, 'selectedAccount', 'oshi')}
                       className={`p-3 rounded-lg border-2 transition-all ${
                         transaction.selectedAccount === 'oshi'
-                          ? 'border-purple-500 bg-purple-50 text-purple-700'
+                          ? 'border-gray-700 bg-gray-200 text-gray-900'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -366,7 +366,7 @@ export function BatchCategorizationContent() {
           <Button
             onClick={handleSaveAll}
             disabled={isSaving || transactions.filter(tx => tx.selectedPurpose && tx.selectedAccount).length === 0}
-            className="bg-blue-500 hover:bg-blue-600 text-white flex items-center gap-2"
+            className="bg-gray-900 hover:bg-gray-800 text-white flex items-center gap-2"
           >
             {isSaving ? (
               <Loader2 className="w-4 h-4 animate-spin" />

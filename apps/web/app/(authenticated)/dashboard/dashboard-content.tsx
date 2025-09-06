@@ -480,7 +480,7 @@ export function DashboardContent() {
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-gray-900 to-gray-700 rounded-xl shadow-lg">
+              <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
                 <DollarSign className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -510,7 +510,7 @@ export function DashboardContent() {
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-gradient-to-br from-gray-800 to-gray-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-full">
                   <PiggyBank className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -546,7 +546,7 @@ export function DashboardContent() {
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-gradient-to-br from-gray-700 to-gray-500 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
                 <div>

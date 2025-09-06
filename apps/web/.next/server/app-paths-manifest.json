@@ -2,8 +2,8 @@
   "/_not-found": "app/_not-found.js",
   "/login/page": "app/login/page.js",
   "/page": "app/page.js",
-  "/(authenticated)/transactions/page": "app/(authenticated)/transactions/page.js",
-  "/(authenticated)/transactions/swipe/page": "app/(authenticated)/transactions/swipe/page.js",
+  "/(authenticated)/dashboard/page": "app/(authenticated)/dashboard/page.js",
   "/(authenticated)/transactions/batch/page": "app/(authenticated)/transactions/batch/page.js",
-  "/(authenticated)/dashboard/page": "app/(authenticated)/dashboard/page.js"
+  "/(authenticated)/transactions/swipe/page": "app/(authenticated)/transactions/swipe/page.js",
+  "/(authenticated)/transactions/page": "app/(authenticated)/transactions/page.js"
 }

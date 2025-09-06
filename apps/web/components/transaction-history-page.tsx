@@ -127,7 +127,7 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-black/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-gray-900 to-gray-700 rounded-lg shadow-lg">
+              <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
                 <DollarSign className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -139,7 +139,7 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
           
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-black/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-gray-800 to-gray-600 rounded-lg shadow-lg">
+              <div className="p-2 bg-gradient-to-r from-green-500 to-green-600 rounded-full">
                 <PiggyBank className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -151,7 +151,7 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
           
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-black/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-gray-700 to-gray-500 rounded-lg shadow-lg">
+              <div className="p-2 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full">
                 <Heart className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -170,21 +170,21 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-black/5 p-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-lg font-semibold text-gray-900">振り分け管理</h3>
-              <span className="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-medium">
+              <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
                 {pendingCount}件 未処理
               </span>
             </div>
             <div className="flex flex-wrap gap-3">
               <Button
                 onClick={onBatchCategorization}
-                className="bg-gradient-to-r from-gray-900 to-gray-700 hover:from-gray-800 hover:to-gray-600 text-white flex items-center gap-2 shadow-lg"
+                className="bg-gray-900 hover:bg-gray-800 text-white flex items-center gap-2 shadow-lg"
               >
                 <ArrowUpDown className="w-4 h-4" />
                 一括振り分け
               </Button>
               <Button
                 onClick={onSwipeMode}
-                className="bg-gradient-to-r from-gray-800 to-gray-600 hover:from-gray-700 hover:to-gray-500 text-white flex items-center gap-2 shadow-lg"
+                className="bg-gray-800 hover:bg-gray-700 text-white flex items-center gap-2 shadow-lg"
               >
                 <CreditCard className="w-4 h-4" />
                 スワイプで振り分け
@@ -293,14 +293,14 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                       <div className="flex items-center gap-2 mb-1">
                         <h3 className="font-medium">{transaction.memo}</h3>
                         {transaction.isPending && (
-                          <span className="px-2 py-1 bg-orange-200 text-orange-800 text-xs rounded-full">
+                          <span className="px-2 py-1 bg-gray-200 text-gray-700 text-xs rounded-full">
                             未振り分け
                           </span>
                         )}
                         <span className={`px-2 py-1 text-xs rounded-full ${
                           transaction.accountKind === 'life' 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-purple-100 text-purple-800'
+                            ? 'bg-gray-100 text-gray-700' 
+                            : 'bg-gray-200 text-gray-800'
                         }`}>
                           {transaction.accountName}
                         </span>
