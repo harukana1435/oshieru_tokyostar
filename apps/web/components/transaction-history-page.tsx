@@ -206,7 +206,11 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                   variant={filterAccount === 'all' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterAccount('all')}
-                  className="rounded-none"
+                  className={`rounded-none ${
+                    filterAccount === 'all' 
+                      ? 'bg-gray-900 text-white hover:bg-gray-800' 
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100'
+                  }`}
                 >
                   全て
                 </Button>
@@ -214,7 +218,11 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                   variant={filterAccount === 'life' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterAccount('life')}
-                  className="rounded-none border-x"
+                  className={`rounded-none border-x ${
+                    filterAccount === 'life' 
+                      ? 'bg-gray-900 text-white hover:bg-gray-800' 
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100'
+                  }`}
                 >
                   生活
                 </Button>
@@ -222,7 +230,11 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                   variant={filterAccount === 'oshi' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterAccount('oshi')}
-                  className="rounded-none"
+                  className={`rounded-none ${
+                    filterAccount === 'oshi' 
+                      ? 'bg-gray-900 text-white hover:bg-gray-800' 
+                      : 'bg-transparent text-gray-600 hover:bg-gray-100'
+                  }`}
                 >
                   推し活
                 </Button>
@@ -236,6 +248,10 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                 variant={sortBy === 'date' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSortBy('date')}
+                className={sortBy === 'date' 
+                  ? 'bg-gray-900 text-white hover:bg-gray-800' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100'
+                }
               >
                 日付順
               </Button>
@@ -243,6 +259,10 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                 variant={sortBy === 'amount' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSortBy('amount')}
+                className={sortBy === 'amount' 
+                  ? 'bg-gray-900 text-white hover:bg-gray-800' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100'
+                }
               >
                 金額順
               </Button>
@@ -250,6 +270,7 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
                 variant="outline"
                 size="sm"
                 onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                className="bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100"
               >
                 {sortOrder === 'desc' ? <SortDesc className="w-4 h-4" /> : <SortAsc className="w-4 h-4" />}
               </Button>
@@ -265,7 +286,11 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
               onClick={() => setShowPendingOnly(!showPendingOnly)}
               variant={showPendingOnly ? "default" : "outline"}
               size="sm"
-              className="flex items-center gap-2"
+              className={`flex items-center gap-2 ${
+                showPendingOnly 
+                  ? 'bg-gray-900 text-white hover:bg-gray-800' 
+                  : 'bg-transparent text-gray-600 border-gray-300 hover:bg-gray-100'
+              }`}
             >
               <Filter className="w-4 h-4" />
               {showPendingOnly ? '全て表示' : '未振り分けのみ表示'}
