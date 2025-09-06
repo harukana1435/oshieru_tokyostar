@@ -14,7 +14,7 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: '#ff6b9d',
+  themeColor: '#f59e0b', // プライマリカラー（アンバー）
 }
 
 export default function RootLayout({
@@ -25,9 +25,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   )

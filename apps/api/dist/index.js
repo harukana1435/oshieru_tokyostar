@@ -10,6 +10,7 @@ import { scoreRoutes } from './routes/scores';
 import { rewardRoutes } from './routes/rewards';
 import { dashboardRoutes } from './routes/dashboard';
 import { analysisRoutes } from './routes/analysis';
+import { usersRoute } from './routes/users';
 const app = new Hono();
 // Middleware
 app.use('*', cors());
@@ -36,6 +37,7 @@ app.route('/scores', scoreRoutes);
 app.route('/rewards', rewardRoutes);
 app.route('/dashboard', dashboardRoutes);
 app.route('/analysis', analysisRoutes);
+app.route('/users', usersRoute);
 // Error handling
 app.onError((err, c) => {
     console.error(`${err}`);

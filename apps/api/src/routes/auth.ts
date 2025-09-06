@@ -73,6 +73,48 @@ auth.get('/me', async (c) => {
   });
 });
 
+// デモログイン（プロトタイプ用）
+auth.post('/demo-login', async (c) => {
+  const { email } = await c.req.json();
+  
+  if (!email) {
+    return c.json({ 
+      success: false,
+      error: 'Email is required' 
+    }, 400);
+  }
+  
+  const db = c.get('db');
+  
+  // ユーザーを検索
+  const user = await db.select().from(users).where(eq(users.email, email)).get();
+  
+  if (!user) {
+    return c.json({ 
+      success: false,
+      error: 'User not found' 
+    }, 404);
+  }
+  
+  // デモセッション情報をKVに保存
+  const sessionId = `demo-session-${Date.now()}`;
+  await c.env.KV.put(`session:${sessionId}`, JSON.stringify({ 
+    userId: user.id,
+    email: user.email 
+  }), { expirationTtl: 86400 * 7 }); // 7日間
+  
+  return c.json({
+    success: true,
+    user: {
+      id: user.id,
+      email: user.email,
+      displayName: user.displayName,
+      createdAt: user.createdAt,
+    },
+    sessionId
+  });
+});
+
 // ログアウト
 auth.post('/logout', async (c) => {
   const sessionId = c.req.header('Authorization')?.replace('Bearer ', '');

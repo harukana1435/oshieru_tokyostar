@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { formatCurrency } from '@/lib/utils'
@@ -16,6 +16,7 @@ interface Transaction {
   isPending?: boolean
   canEdit?: boolean
   eventAt: Date
+  accountKind?: 'life' | 'oshi'
 }
 
 interface TransactionEditModalProps {
@@ -47,22 +48,64 @@ export function TransactionEditModal({ transaction, onSave, onClose }: Transacti
     ['ticket', 'goods', 'event'].includes(transaction.purpose) ? 'oshi' : 'life'
   )
 
-  const handleSave = () => {
+  // transactionプロパティが変更されたときに状態を更新
+  useEffect(() => {
+    setEditedTransaction({ ...transaction })
+    // 口座種別も取引の現在の口座に基づいて設定
+    if (transaction.accountKind) {
+      setAccountType(transaction.accountKind as 'life' | 'oshi')
+    } else {
+      setAccountType(['ticket', 'goods', 'event'].includes(transaction.purpose) ? 'oshi' : 'life')
+    }
+  }, [transaction])
+
+  const handleSave = async () => {
     // 口座種別に応じて用途を調整
     let finalPurpose = editedTransaction.purpose
     if (accountType === 'oshi' && !['ticket', 'goods', 'event'].includes(finalPurpose)) {
       finalPurpose = 'other'
     }
 
-    const updatedTransaction = {
-      ...editedTransaction,
-      purpose: finalPurpose,
-      isAutoCategorized: false, // 手動編集されたため自動分類フラグを無効化
-      isPending: false, // 編集により保留状態を解除
-    }
+    try {
+      // APIを呼び出して取引を更新
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://oshieru-api.harukana1435.workers.dev'
+      const response = await fetch(`${apiUrl}/transactions/${transaction.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('sessionId')}`,
+          'X-User-Email': localStorage.getItem('userEmail') || ''
+        },
+        body: JSON.stringify({
+          purpose: finalPurpose,
+          memo: editedTransaction.memo,
+          accountType: accountType // 口座移行情報を送信
+        })
+      })
 
-    onSave(updatedTransaction)
-    onClose()
+      if (response.ok) {
+        const result = await response.json()
+        console.log('Transaction updated via API:', result)
+        
+        // 成功した場合、親コンポーネントに通知
+        const updatedTransaction = {
+          ...result.transaction,
+          eventAt: new Date(result.transaction.eventAt),
+          createdAt: new Date(result.transaction.createdAt),
+          isAutoCategorized: false,
+          isPending: false,
+        }
+        
+        onSave(updatedTransaction)
+        onClose()
+      } else {
+        console.error('Failed to update transaction:', await response.text())
+        alert('取引の更新に失敗しました')
+      }
+    } catch (error) {
+      console.error('Error updating transaction:', error)
+      alert('取引の更新中にエラーが発生しました')
+    }
   }
 
   return (

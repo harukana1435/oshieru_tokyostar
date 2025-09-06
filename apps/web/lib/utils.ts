@@ -6,10 +6,26 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('ja-JP', {
+  // NaNや無効な値の場合は0として扱う
+  const validAmount = isNaN(amount) || amount === null || amount === undefined ? 0 : amount
+  
+  const formatted = new Intl.NumberFormat('ja-JP', {
     style: 'currency',
     currency: 'JPY',
-  }).format(amount)
+  }).format(Math.abs(validAmount))
+  
+  // 負の値の場合は￥の後にマイナス記号を配置
+  return validAmount < 0 ? `￥-${formatted.slice(1)}` : formatted
+}
+
+export function formatDateTime(date: Date): string {
+  return new Intl.DateTimeFormat('ja-JP', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date)
 }
 
 export function formatDate(date: Date): string {
@@ -17,16 +33,6 @@ export function formatDate(date: Date): string {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
-  }).format(date)
-}
-
-export function formatDateTime(date: Date): string {
-  return new Intl.DateTimeFormat('ja-JP', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
   }).format(date)
 }
 

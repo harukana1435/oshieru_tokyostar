@@ -4,48 +4,60 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* 推しエール口座専用カラーシステム */
+    --color-primary-50: #fefdf8;
+    --color-primary-400: #f59e0b;
+    --color-primary-500: #d97706;
+    
+    --shadow-soft: 0 1px 3px 0 rgba(120, 113, 108, 0.1), 0 1px 2px 0 rgba(120, 113, 108, 0.06);
+    --shadow-normal: 0 4px 6px -1px rgba(120, 113, 108, 0.1), 0 2px 4px -1px rgba(120, 113, 108, 0.06);
+    
+    --border-radius-card: 0.75rem;
+    --border-radius-button: 0.5rem;
+
+    /* shadcn/ui互換カラー（ベージュ・黄色ベースに調整） */
+    --background: 250 20% 98%;
+    --foreground: 28 25% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 28 25% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --popover-foreground: 28 25% 15%;
+    --primary: 39 100% 50%;
+    --primary-foreground: 28 25% 15%;
+    --secondary: 45 100% 96%;
+    --secondary-foreground: 28 25% 15%;
+    --muted: 45 100% 96%;
+    --muted-foreground: 28 10% 50%;
+    --accent: 45 100% 96%;
+    --accent-foreground: 28 25% 15%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 39 20% 88%;
+    --input: 39 20% 88%;
+    --ring: 39 100% 50%;
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
+    --background: 28 25% 8%;
+    --foreground: 45 100% 96%;
+    --card: 28 25% 8%;
+    --card-foreground: 45 100% 96%;
+    --popover: 28 25% 8%;
+    --popover-foreground: 45 100% 96%;
+    --primary: 39 100% 50%;
+    --primary-foreground: 28 25% 8%;
+    --secondary: 28 15% 15%;
+    --secondary-foreground: 45 100% 96%;
+    --muted: 28 15% 15%;
+    --muted-foreground: 28 10% 65%;
+    --accent: 28 15% 15%;
+    --accent-foreground: 45 100% 96%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 45 100% 96%;
+    --border: 28 15% 15%;
+    --input: 28 15% 15%;
+    --ring: 39 100% 50%;
   }
 }
 
@@ -54,38 +66,227 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
 }
 
-/* スマホ優先のスタイル */
-@media (max-width: 768px) {
-  .container {
-    @apply px-4;
+/* アクセシビリティ配慮 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-/* 推しエール専用のカラーパレット */
-.oshi-gradient {
-  background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #f8b500 100%);
-}
+@layer components {
+  /* タイポグラフィスタイル */
+  .heading-1 {
+    @apply text-2xl md:text-3xl font-bold text-neutral-800 leading-tight;
+  }
+  
+  .heading-2 {
+    @apply text-xl md:text-2xl font-semibold text-neutral-700 leading-tight;
+  }
+  
+  .heading-3 {
+    @apply text-lg md:text-xl font-medium text-neutral-700 leading-snug;
+  }
+  
+  .body-large {
+    @apply text-base md:text-lg text-neutral-600 leading-relaxed;
+  }
+  
+  .body-medium {
+    @apply text-sm md:text-base text-neutral-600 leading-relaxed;
+  }
+  
+  .body-small {
+    @apply text-xs md:text-sm text-neutral-500 leading-normal;
+  }
+  
+  .caption {
+    @apply text-xs text-neutral-400 leading-normal;
+  }
+  
+  .text-emphasis {
+    @apply font-semibold text-primary-600;
+  }
 
-.oshi-card {
-  @apply bg-gradient-to-br from-pink-50 to-purple-50 border-pink-200;
-}
+  /* ボタンスタイル */
+  .btn-primary {
+    @apply bg-primary-400 hover:bg-primary-500 active:bg-primary-600 
+           text-neutral-800 font-medium 
+           px-4 py-2 md:px-6 md:py-3 
+           rounded-lg shadow-normal hover:shadow-strong 
+           transition-all duration-200 ease-in-out
+           focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-opacity-50;
+  }
+  
+  .btn-secondary {
+    @apply bg-neutral-100 hover:bg-neutral-200 active:bg-neutral-300 
+           text-neutral-700 font-medium 
+           px-4 py-2 md:px-6 md:py-3 
+           rounded-lg shadow-soft hover:shadow-normal 
+           transition-all duration-200 ease-in-out
+           focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:ring-opacity-50;
+  }
+  
+  .btn-outline {
+    @apply bg-transparent hover:bg-primary-50 active:bg-primary-100 
+           text-primary-600 hover:text-primary-700 font-medium 
+           border-2 border-primary-300 hover:border-primary-400 
+           px-4 py-2 md:px-6 md:py-3 
+           rounded-lg 
+           transition-all duration-200 ease-in-out
+           focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-opacity-50;
+  }
 
-.safety-score-excellent {
-  @apply text-green-600 bg-green-50 border-green-200;
-}
+  /* カードスタイル */
+  .card {
+    @apply bg-white border border-neutral-200 
+           rounded-xl md:rounded-2xl 
+           shadow-normal hover:shadow-strong 
+           p-4 md:p-6 
+           transition-all duration-200 ease-in-out;
+  }
+  
+  .card-accent {
+    @apply bg-gradient-to-br from-primary-50 to-secondary-50 
+           border border-primary-200 
+           rounded-xl md:rounded-2xl 
+           shadow-normal hover:shadow-strong 
+           p-4 md:p-6 
+           transition-all duration-200 ease-in-out;
+  }
+  
+  .card-score {
+    @apply bg-gradient-to-br from-secondary-100 to-primary-100 
+           border border-secondary-300 
+           rounded-xl md:rounded-2xl 
+           shadow-strong 
+           p-6 md:p-8 
+           text-center;
+  }
 
-.safety-score-good {
-  @apply text-blue-600 bg-blue-50 border-blue-200;
-}
+  /* フォーム要素 */
+  .input-field {
+    @apply w-full px-3 py-2 md:px-4 md:py-3 
+           bg-white border border-neutral-300 
+           rounded-md 
+           text-neutral-700 placeholder-neutral-400 
+           focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 
+           transition-colors duration-200;
+  }
 
-.safety-score-warning {
-  @apply text-yellow-600 bg-yellow-50 border-yellow-200;
-}
+  /* ナビゲーション */
+  .tab-nav {
+    @apply flex bg-neutral-100 rounded-lg p-1;
+  }
+  
+  .tab-item {
+    @apply flex-1 px-3 py-2 text-sm font-medium text-center 
+           text-neutral-600 rounded-md 
+           transition-all duration-200;
+  }
+  
+  .tab-item-active {
+    @apply bg-white text-primary-600 shadow-soft;
+  }
+  
+  .bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 
+           bg-white border-t border-neutral-200 
+           px-4 py-2 
+           flex justify-around items-center;
+  }
+  
+  .bottom-nav-item {
+    @apply flex flex-col items-center 
+           px-2 py-1 
+           text-xs text-neutral-500 
+           transition-colors duration-200;
+  }
+  
+  .bottom-nav-item-active {
+    @apply text-primary-600;
+  }
 
-.safety-score-danger {
-  @apply text-red-600 bg-red-50 border-red-200;
+  /* 推し活特化デザイン要素 */
+  .score-display {
+    @apply relative overflow-hidden bg-gradient-to-br from-secondary-100 to-primary-100 
+           rounded-2xl p-6 text-center;
+  }
+  
+  .score-circle {
+    @apply w-24 h-24 md:w-32 md:h-32 mx-auto mb-4 
+           rounded-full border-8 border-secondary-300 
+           flex items-center justify-center 
+           text-2xl md:text-3xl font-bold text-primary-600;
+  }
+  
+  .score-label {
+    @apply text-sm md:text-base text-neutral-600 font-medium;
+  }
+  
+  .balance-card {
+    @apply bg-white border border-neutral-200 rounded-xl p-4 
+           shadow-normal hover:shadow-strong transition-all duration-200;
+  }
+  
+  .balance-amount {
+    @apply text-2xl md:text-3xl font-bold text-neutral-800;
+  }
+  
+  .balance-label {
+    @apply text-sm text-neutral-500 font-medium;
+  }
+  
+  .reward-badge {
+    @apply inline-flex items-center px-3 py-1 
+           bg-gradient-to-r from-secondary-200 to-primary-200 
+           text-primary-700 text-xs font-semibold 
+           rounded-full border border-primary-300;
+  }
+  
+  .reward-card {
+    @apply bg-gradient-to-br from-primary-50 to-secondary-50 
+           border border-primary-200 rounded-xl p-4 
+           shadow-soft hover:shadow-normal transition-all duration-200;
+  }
+
+  /* スマホ優先のスタイル */
+  .page-container {
+    @apply max-w-sm mx-auto px-4 md:max-w-2xl md:px-6 lg:max-w-4xl lg:px-8;
+  }
+  
+  .card-grid {
+    @apply grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3;
+  }
+
+  /* 推し活安心度スコア専用カラー */
+  .safety-score-excellent {
+    @apply text-success-600 bg-success-50 border-success-200;
+  }
+  
+  .safety-score-good {
+    @apply text-secondary-600 bg-secondary-50 border-secondary-200;
+  }
+  
+  .safety-score-warning {
+    @apply text-warning-600 bg-warning-50 border-warning-200;
+  }
+  
+  .safety-score-danger {
+    @apply text-error-600 bg-error-50 border-error-200;
+  }
+
+  /* アクセシビリティ配慮 */
+  .focus-visible {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-opacity-50;
+  }
+  
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+  }
 } 
