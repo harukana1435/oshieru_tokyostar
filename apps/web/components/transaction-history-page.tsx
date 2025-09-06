@@ -127,7 +127,7 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-black/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
+              <div className="p-2 bg-gradient-to-br from-gray-900 to-gray-700 rounded-lg shadow-lg">
                 <DollarSign className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -139,7 +139,7 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
           
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-black/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-r from-green-500 to-green-600 rounded-full">
+              <div className="p-2 bg-gradient-to-br from-gray-800 to-gray-600 rounded-lg shadow-lg">
                 <PiggyBank className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -151,7 +151,7 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
           
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-lg shadow-black/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full">
+              <div className="p-2 bg-gradient-to-br from-gray-700 to-gray-500 rounded-lg shadow-lg">
                 <Heart className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -177,14 +177,14 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
             <div className="flex flex-wrap gap-3">
               <Button
                 onClick={onBatchCategorization}
-                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white flex items-center gap-2 shadow-lg"
+                className="bg-gradient-to-r from-gray-900 to-gray-700 hover:from-gray-800 hover:to-gray-600 text-white flex items-center gap-2 shadow-lg"
               >
                 <ArrowUpDown className="w-4 h-4" />
                 一括振り分け
               </Button>
               <Button
                 onClick={onSwipeMode}
-                className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white flex items-center gap-2 shadow-lg"
+                className="bg-gradient-to-r from-gray-800 to-gray-600 hover:from-gray-700 hover:to-gray-500 text-white flex items-center gap-2 shadow-lg"
               >
                 <CreditCard className="w-4 h-4" />
                 スワイプで振り分け
@@ -197,9 +197,6 @@ export function TransactionHistoryPage({ onSwipeMode, onBatchCategorization }: T
       {/* フィルター・ソート */}
       <Card>
         <CardHeader className="pb-4">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">フィルター・ソート</h3>
-          </div>
           <div className="flex flex-wrap gap-4 items-center">
             {/* 口座フィルター */}
             <div className="flex items-center gap-2">

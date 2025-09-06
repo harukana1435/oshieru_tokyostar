@@ -480,7 +480,7 @@ export function DashboardContent() {
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
+              <div className="p-3 bg-gradient-to-br from-gray-900 to-gray-700 rounded-xl shadow-lg">
                 <DollarSign className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -490,7 +490,7 @@ export function DashboardContent() {
             </div>
             <button
               onClick={() => router.push('/transactions')}
-              className="px-3 py-1.5 text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-700 transition-colors rounded-full"
+              className="px-4 py-2 text-sm text-gray-600 bg-gray-50 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-xl border border-gray-200/50"
             >
               取引履歴を見る
             </button>
@@ -510,7 +510,7 @@ export function DashboardContent() {
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-full">
+                <div className="p-3 bg-gradient-to-br from-gray-800 to-gray-600 rounded-xl shadow-lg">
                   <PiggyBank className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -523,7 +523,7 @@ export function DashboardContent() {
                   ...data.lifeAccount,
                   transactions: data.recentTransactions.filter((tx: Transaction) => tx.accountKind === 'life')
                 })}
-                className="px-3 py-1.5 text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-700 transition-colors rounded-full"
+                className="px-4 py-2 text-sm text-gray-600 bg-gray-50 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-xl border border-gray-200/50"
               >
                 詳細を見る
               </button>
@@ -546,7 +546,7 @@ export function DashboardContent() {
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full">
+                <div className="p-3 bg-gradient-to-br from-gray-700 to-gray-500 rounded-xl shadow-lg">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -559,7 +559,7 @@ export function DashboardContent() {
                   ...data.oshiAccount,
                   transactions: data.recentTransactions.filter((tx: Transaction) => tx.accountKind === 'oshi')
                 })}
-                className="px-3 py-1.5 text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-700 transition-colors rounded-full"
+                className="px-4 py-2 text-sm text-gray-600 bg-gray-50 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-xl border border-gray-200/50"
               >
                 詳細を見る
               </button>

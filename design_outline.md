@@ -1,57 +1,69 @@
 # 推しエール口座 デザインルール
 
 ## デザインコンセプト
-**「温かみのある安心感と、推し活への愛情を表現する可愛らしいデザイン」**
+**「洗練されたモノトーンの美しさと、推し活への情熱を表現するスタイリッシュなデザイン」**
 
-健康的な推し活をサポートする金融アプリとして、ユーザーに安心感と親しみやすさを与える温かみのあるデザインを目指します。ベージュの安定感と黄色の明るさで、推し活への愛情と金融の信頼性を両立させます。
+健康的な推し活をサポートする金融アプリとして、ユーザーに信頼性と洗練された体験を提供するモノトーンベースのデザインを目指します。グレースケールの上品さと、アクセントカラーによる情熱的な推し活サポートを両立させます。
 
 ---
 
 ## 1. カラーシステム
 
-### プライマリーカラー
+### プライマリーカラー（グレースケール）
 ```css
-/* ベージュ系 - メインカラー */
---primary-50: #fefdf8    /* bg-amber-50 */
---primary-100: #fef3c7   /* bg-amber-100 */
---primary-200: #fde68a   /* bg-amber-200 */
---primary-300: #fcd34d   /* bg-amber-300 */
---primary-400: #f59e0b   /* bg-amber-400 */
---primary-500: #d97706   /* bg-amber-500 */
---primary-600: #b45309   /* bg-amber-600 */
---primary-700: #92400e   /* bg-amber-700 */
---primary-800: #78350f   /* bg-amber-800 */
---primary-900: #451a03   /* bg-amber-900 */
+/* グレー系 - メインカラー */
+--primary-50: #fafafa    /* bg-gray-50 */
+--primary-100: #f5f5f5   /* bg-gray-100 */
+--primary-200: #e5e5e5   /* bg-gray-200 */
+--primary-300: #d4d4d4   /* bg-gray-300 */
+--primary-400: #a3a3a3   /* bg-gray-400 */
+--primary-500: #737373   /* bg-gray-500 */
+--primary-600: #525252   /* bg-gray-600 */
+--primary-700: #404040   /* bg-gray-700 */
+--primary-800: #262626   /* bg-gray-800 */
+--primary-900: #171717   /* bg-gray-900 */
 ```
 
-### セカンダリーカラー
+### セカンダリーカラー（ダークグレー）
 ```css
-/* 黄色系 - アクセントカラー */
---secondary-50: #fffbeb   /* bg-yellow-50 */
---secondary-100: #fef3c7  /* bg-yellow-100 */
---secondary-200: #fde68a  /* bg-yellow-200 */
---secondary-300: #fcd34d  /* bg-yellow-300 */
---secondary-400: #fbbf24  /* bg-yellow-400 */
---secondary-500: #f59e0b  /* bg-yellow-500 */
---secondary-600: #d97706  /* bg-yellow-600 */
---secondary-700: #b45309  /* bg-yellow-700 */
---secondary-800: #92400e  /* bg-yellow-800 */
---secondary-900: #78350f  /* bg-yellow-900 */
+/* ダークグレー系 - アクセントカラー */
+--secondary-50: #f8fafc   /* bg-slate-50 */
+--secondary-100: #f1f5f9  /* bg-slate-100 */
+--secondary-200: #e2e8f0  /* bg-slate-200 */
+--secondary-300: #cbd5e1  /* bg-slate-300 */
+--secondary-400: #94a3b8  /* bg-slate-400 */
+--secondary-500: #64748b  /* bg-slate-500 */
+--secondary-600: #475569  /* bg-slate-600 */
+--secondary-700: #334155  /* bg-slate-700 */
+--secondary-800: #1e293b  /* bg-slate-800 */
+--secondary-900: #0f172a  /* bg-slate-900 */
 ```
 
-### ニュートラルカラー
+### アクセントカラー（推し活用）
 ```css
-/* グレー系 - テキストと背景 */
---neutral-50: #fafaf9    /* bg-stone-50 */
---neutral-100: #f5f5f4   /* bg-stone-100 */
---neutral-200: #e7e5e4   /* bg-stone-200 */
---neutral-300: #d6d3d1   /* bg-stone-300 */
---neutral-400: #a8a29e   /* bg-stone-400 */
---neutral-500: #78716c   /* bg-stone-500 */
---neutral-600: #57534e   /* bg-stone-600 */
---neutral-700: #44403c   /* bg-stone-700 */
---neutral-800: #292524   /* bg-stone-800 */
---neutral-900: #1c1917   /* bg-stone-900 */
+/* ブルー系 - 推し活アクセント */
+--accent-50: #eff6ff     /* bg-blue-50 */
+--accent-100: #dbeafe    /* bg-blue-100 */
+--accent-200: #bfdbfe    /* bg-blue-200 */
+--accent-300: #93c5fd    /* bg-blue-300 */
+--accent-400: #60a5fa    /* bg-blue-400 */
+--accent-500: #3b82f6    /* bg-blue-500 */
+--accent-600: #2563eb    /* bg-blue-600 */
+--accent-700: #1d4ed8    /* bg-blue-700 */
+--accent-800: #1e40af    /* bg-blue-800 */
+--accent-900: #1e3a8a    /* bg-blue-900 */
+
+/* パープル系 - 推し活セカンダリ */
+--accent-purple-50: #faf5ff   /* bg-purple-50 */
+--accent-purple-100: #f3e8ff  /* bg-purple-100 */
+--accent-purple-200: #e9d5ff  /* bg-purple-200 */
+--accent-purple-300: #d8b4fe  /* bg-purple-300 */
+--accent-purple-400: #c084fc  /* bg-purple-400 */
+--accent-purple-500: #a855f7  /* bg-purple-500 */
+--accent-purple-600: #9333ea  /* bg-purple-600 */
+--accent-purple-700: #7c3aed  /* bg-purple-700 */
+--accent-purple-800: #6b21a8  /* bg-purple-800 */
+--accent-purple-900: #581c87  /* bg-purple-900 */
 ```
 
 ### セマンティックカラー
@@ -62,9 +74,9 @@
 --success-600: #16a34a   /* bg-green-600 */
 
 /* 警告 */
---warning-50: #fffbeb    /* bg-orange-50 */
---warning-500: #f97316   /* bg-orange-500 */
---warning-600: #ea580c   /* bg-orange-600 */
+--warning-50: #fefce8    /* bg-yellow-50 */
+--warning-500: #eab308   /* bg-yellow-500 */
+--warning-600: #ca8a04   /* bg-yellow-600 */
 
 /* エラー・危険 */
 --error-50: #fef2f2      /* bg-red-50 */
@@ -72,17 +84,17 @@
 --error-600: #dc2626     /* bg-red-600 */
 
 /* 情報 */
---info-50: #eff6ff       /* bg-blue-50 */
---info-500: #3b82f6      /* bg-blue-500 */
---info-600: #2563eb      /* bg-blue-600 */
+--info-50: #f0f9ff       /* bg-sky-50 */
+--info-500: #0ea5e9      /* bg-sky-500 */
+--info-600: #0284c7      /* bg-sky-600 */
 ```
 
 ### 推し活安心度スコア専用カラー
 ```css
 /* スコア表示用グラデーション */
---score-excellent: linear-gradient(135deg, #fbbf24, #f59e0b)  /* yellow-400 to yellow-500 */
---score-good: linear-gradient(135deg, #fde68a, #fcd34d)       /* yellow-200 to yellow-300 */
---score-warning: linear-gradient(135deg, #f97316, #ea580c)    /* orange-500 to orange-600 */
+--score-excellent: linear-gradient(135deg, #3b82f6, #1d4ed8)  /* blue-500 to blue-700 */
+--score-good: linear-gradient(135deg, #60a5fa, #3b82f6)       /* blue-400 to blue-500 */
+--score-warning: linear-gradient(135deg, #eab308, #ca8a04)    /* yellow-500 to yellow-600 */
 --score-danger: linear-gradient(135deg, #ef4444, #dc2626)     /* red-500 to red-600 */
 ```
 
@@ -93,7 +105,7 @@
 ### フォントファミリー
 ```css
 /* プライマリフォント（日本語対応） */
-font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic UI', 'Meiryo UI', sans-serif;
+font-family: 'Inter', 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic UI', 'Meiryo UI', sans-serif;
 
 /* Tailwind CSS設定 */
 font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -117,40 +129,40 @@ font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 ```css
 /* H1 - ページタイトル */
 .heading-1 {
-  @apply text-2xl md:text-3xl font-bold text-stone-800 leading-tight;
+  @apply text-2xl md:text-3xl font-bold text-gray-900 leading-tight;
 }
 
 /* H2 - セクションタイトル */
 .heading-2 {
-  @apply text-xl md:text-2xl font-semibold text-stone-700 leading-tight;
+  @apply text-xl md:text-2xl font-semibold text-gray-800 leading-tight;
 }
 
 /* H3 - サブセクション */
 .heading-3 {
-  @apply text-lg md:text-xl font-medium text-stone-700 leading-snug;
+  @apply text-lg md:text-xl font-medium text-gray-800 leading-snug;
 }
 
 /* ボディテキスト */
 .body-large {
-  @apply text-base md:text-lg text-stone-600 leading-relaxed;
+  @apply text-base md:text-lg text-gray-700 leading-relaxed;
 }
 
 .body-medium {
-  @apply text-sm md:text-base text-stone-600 leading-relaxed;
+  @apply text-sm md:text-base text-gray-600 leading-relaxed;
 }
 
 .body-small {
-  @apply text-xs md:text-sm text-stone-500 leading-normal;
+  @apply text-xs md:text-sm text-gray-500 leading-normal;
 }
 
 /* キャプション */
 .caption {
-  @apply text-xs text-stone-400 leading-normal;
+  @apply text-xs text-gray-400 leading-normal;
 }
 
 /* 強調テキスト */
 .text-emphasis {
-  @apply font-semibold text-amber-600;
+  @apply font-semibold text-blue-600;
 }
 ```
 
@@ -248,24 +260,24 @@ font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 
 ### シャドウスケール
 ```css
-/* 軽いシャドウ */
+/* ソフトシャドウ */
 .shadow-soft {
-  box-shadow: 0 1px 3px 0 rgba(120, 113, 108, 0.1), 0 1px 2px 0 rgba(120, 113, 108, 0.06);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
 }
 
 /* 標準シャドウ */
 .shadow-normal {
-  box-shadow: 0 4px 6px -1px rgba(120, 113, 108, 0.1), 0 2px 4px -1px rgba(120, 113, 108, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
 /* 強いシャドウ */
 .shadow-strong {
-  box-shadow: 0 10px 15px -3px rgba(120, 113, 108, 0.1), 0 4px 6px -2px rgba(120, 113, 108, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* フローティングシャドウ */
 .shadow-floating {
-  box-shadow: 0 20px 25px -5px rgba(120, 113, 108, 0.1), 0 10px 10px -5px rgba(120, 113, 108, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* インナーシャドウ */
@@ -293,37 +305,49 @@ font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 #### プライマリボタン
 ```css
 .btn-primary {
-  @apply bg-amber-400 hover:bg-amber-500 active:bg-amber-600 
-         text-stone-800 font-medium 
+  @apply bg-gray-900 hover:bg-gray-800 active:bg-gray-700 
+         text-white font-medium 
          px-4 py-2 md:px-6 md:py-3 
-         rounded-lg shadow-normal hover:shadow-strong 
+         rounded-lg shadow-lg hover:shadow-xl 
          transition-all duration-200 ease-in-out
-         focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-opacity-50;
+         focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50;
 }
 ```
 
 #### セカンダリボタン
 ```css
 .btn-secondary {
-  @apply bg-stone-100 hover:bg-stone-200 active:bg-stone-300 
-         text-stone-700 font-medium 
+  @apply bg-gray-100 hover:bg-gray-200 active:bg-gray-300 
+         text-gray-900 font-medium 
          px-4 py-2 md:px-6 md:py-3 
-         rounded-lg shadow-soft hover:shadow-normal 
+         rounded-lg shadow-sm hover:shadow-md 
          transition-all duration-200 ease-in-out
-         focus:outline-none focus:ring-2 focus:ring-stone-200 focus:ring-opacity-50;
+         focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50;
+}
+```
+
+#### アクセントボタン
+```css
+.btn-accent {
+  @apply bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 
+         text-white font-medium 
+         px-4 py-2 md:px-6 md:py-3 
+         rounded-lg shadow-lg hover:shadow-xl 
+         transition-all duration-200 ease-in-out
+         focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50;
 }
 ```
 
 #### アウトラインボタン
 ```css
 .btn-outline {
-  @apply bg-transparent hover:bg-amber-50 active:bg-amber-100 
-         text-amber-600 hover:text-amber-700 font-medium 
-         border-2 border-amber-300 hover:border-amber-400 
+  @apply bg-transparent hover:bg-gray-50 active:bg-gray-100 
+         text-gray-700 hover:text-gray-900 font-medium 
+         border-2 border-gray-300 hover:border-gray-400 
          px-4 py-2 md:px-6 md:py-3 
          rounded-lg 
          transition-all duration-200 ease-in-out
-         focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-opacity-50;
+         focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50;
 }
 ```
 
@@ -344,9 +368,9 @@ font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 #### 基本カード
 ```css
 .card {
-  @apply bg-white border border-stone-200 
-         rounded-xl md:rounded-2xl 
-         shadow-normal hover:shadow-strong 
+  @apply bg-white/80 backdrop-blur-xl border border-gray-200/50 
+         rounded-2xl 
+         shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 
          p-4 md:p-6 
          transition-all duration-200 ease-in-out;
 }
@@ -355,10 +379,10 @@ font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 #### アクセントカード
 ```css
 .card-accent {
-  @apply bg-gradient-to-br from-amber-50 to-yellow-50 
-         border border-amber-200 
-         rounded-xl md:rounded-2xl 
-         shadow-normal hover:shadow-strong 
+  @apply bg-gradient-to-br from-gray-50 to-gray-100/50 backdrop-blur-xl 
+         border border-gray-200/50 
+         rounded-2xl 
+         shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 
          p-4 md:p-6 
          transition-all duration-200 ease-in-out;
 }
@@ -367,10 +391,10 @@ font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 #### スコアカード
 ```css
 .card-score {
-  @apply bg-gradient-to-br from-yellow-100 to-amber-100 
-         border border-yellow-300 
-         rounded-xl md:rounded-2xl 
-         shadow-strong 
+  @apply bg-gradient-to-br from-blue-50 to-purple-50 backdrop-blur-xl 
+         border border-blue-200/50 
+         rounded-2xl 
+         shadow-xl shadow-black/10 
          p-6 md:p-8 
          text-center;
 }
@@ -535,26 +559,29 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50: '#fefdf8',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#f59e0b',
-          500: '#d97706',
-          600: '#b45309',
-          700: '#92400e',
-          800: '#78350f',
-          900: '#451a03',
+          50: '#fafafa',
+          100: '#f5f5f5',
+          200: '#e5e5e5',
+          300: '#d4d4d4',
+          400: '#a3a3a3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
         }
       },
       fontFamily: {
-        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 1px 3px 0 rgba(120, 113, 108, 0.1), 0 1px 2px 0 rgba(120, 113, 108, 0.06)',
-        'normal': '0 4px 6px -1px rgba(120, 113, 108, 0.1), 0 2px 4px -1px rgba(120, 113, 108, 0.06)',
-        'strong': '0 10px 15px -3px rgba(120, 113, 108, 0.1), 0 4px 6px -2px rgba(120, 113, 108, 0.05)',
-        'floating': '0 20px 25px -5px rgba(120, 113, 108, 0.1), 0 10px 10px -5px rgba(120, 113, 108, 0.04)',
+        'soft': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03)',
+        'normal': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+        'strong': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'floating': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      },
+      backdropBlur: {
+        'xl': '24px',
       }
     }
   },
@@ -588,35 +615,33 @@ module.exports = {
 ### 10.1 推し活安心度スコア表示
 ```css
 .score-display {
-  @apply relative overflow-hidden bg-gradient-to-br from-yellow-100 to-amber-100 
-         rounded-2xl p-6 text-center;
+  @apply relative overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 
+         rounded-2xl p-6 text-center backdrop-blur-xl;
 }
 
-.score-circle {
-  @apply w-24 h-24 md:w-32 md:h-32 mx-auto mb-4 
-         rounded-full border-8 border-yellow-300 
-         flex items-center justify-center 
-         text-2xl md:text-3xl font-bold text-amber-600;
+.score-gauge {
+  @apply w-24 h-24 md:w-32 md:h-32 mx-auto mb-4;
 }
 
 .score-label {
-  @apply text-sm md:text-base text-stone-600 font-medium;
+  @apply text-sm md:text-base text-gray-700 font-medium;
 }
 ```
 
 ### 10.2 口座残高表示
 ```css
 .balance-card {
-  @apply bg-white border border-stone-200 rounded-xl p-4 
-         shadow-normal hover:shadow-strong transition-all duration-200;
+  @apply bg-white/80 backdrop-blur-xl border border-gray-200/50 rounded-2xl p-4 
+         shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 
+         transition-all duration-200;
 }
 
 .balance-amount {
-  @apply text-2xl md:text-3xl font-bold text-stone-800;
+  @apply text-2xl md:text-3xl font-bold text-gray-900;
 }
 
 .balance-label {
-  @apply text-sm text-stone-500 font-medium;
+  @apply text-sm text-gray-600 font-medium;
 }
 ```
 
@@ -624,15 +649,16 @@ module.exports = {
 ```css
 .reward-badge {
   @apply inline-flex items-center px-3 py-1 
-         bg-gradient-to-r from-yellow-200 to-amber-200 
-         text-amber-700 text-xs font-semibold 
-         rounded-full border border-amber-300;
+         bg-gradient-to-r from-blue-100 to-purple-100 
+         text-blue-700 text-xs font-semibold 
+         rounded-full border border-blue-200;
 }
 
 .reward-card {
-  @apply bg-gradient-to-br from-amber-50 to-yellow-50 
-         border border-amber-200 rounded-xl p-4 
-         shadow-soft hover:shadow-normal transition-all duration-200;
+  @apply bg-white/80 backdrop-blur-xl 
+         border border-gray-200/50 rounded-2xl p-4 
+         shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 
+         transition-all duration-200;
 }
 ```
 
@@ -691,4 +717,4 @@ module.exports = {
 - [ ] レスポンシブデザインの動作確認
 - [ ] ダークモード対応（将来的）
 
-このデザインルールに従って、推しエール口座の温かみがあり親しみやすいUIを実現し、ユーザーが安心して推し活を楽しめるデザインを提供します。
+このデザインルールに従って、推しエール口座の洗練されたモノトーンベースのスタイリッシュなUIを実現し、ユーザーが信頼感を持って推し活を楽しめるデザインを提供します。
