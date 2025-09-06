@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { formatCurrency, formatDateTime } from '@/lib/utils'
-import { ArrowLeft, ArrowRight, Hand, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Hand, Sparkles, PiggyBank, Heart } from 'lucide-react'
 
 interface PendingTransaction {
   id: string
@@ -351,23 +351,6 @@ export function SwipeTransactionPage({ onBack, onUpdate }: SwipeTransactionPageP
                   <strong>取引内容:</strong> {currentTransaction.originalDescription}
                 </div>
 
-                {/* スワイプヒント */}
-                <div className="bg-gray-50 rounded-lg p-4 border-2 border-dashed border-gray-200">
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-2 text-green-600">
-                      <ArrowLeft className="w-4 h-4" />
-                      <span className="font-medium">生活口座</span>
-                    </div>
-                    <div className="text-gray-500 font-medium">
-                      スワイプで選択
-                    </div>
-                    <div className="flex items-center gap-2 text-purple-600">
-                      <span className="font-medium">推し活口座</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </div>
-
                 {/* スワイプ方向のフィードバック */}
                 {swipeDirection && (
                   <div className={`text-center py-2 rounded-lg font-medium ${
@@ -415,8 +398,47 @@ export function SwipeTransactionPage({ onBack, onUpdate }: SwipeTransactionPageP
           </div>
         </div>
         
-        {/* 代替ボタン操作 */}
+        {/* スワイプ操作説明 */}
         <div className="mt-8 pt-6 border-t border-gray-100">
+          <div className="bg-gray-50 rounded-2xl p-6 mb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">スワイプで振り分け</h3>
+            
+            {/* スワイプヒント */}
+            <div className="bg-white rounded-xl p-4 border-2 border-dashed border-gray-300 mb-4">
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center gap-2 text-green-600">
+                  <ArrowLeft className="w-5 h-5" />
+                  <span className="font-semibold">左にスワイプ</span>
+                </div>
+                <div className="text-gray-500 font-medium text-center">
+                  <div className="text-xs">カードを</div>
+                  <div>← → </div>
+                </div>
+                <div className="flex items-center gap-2 text-purple-600">
+                  <span className="font-semibold">右にスワイプ</span>
+                  <ArrowRight className="w-5 h-5" />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 text-center text-sm">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <PiggyBank className="w-6 h-6 text-green-600" />
+                </div>
+                <div className="font-medium text-green-600">生活口座</div>
+                <div className="text-gray-600 text-xs">日常生活の支出</div>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                  <Heart className="w-6 h-6 text-purple-600" />
+                </div>
+                <div className="font-medium text-purple-600">推し活口座</div>
+                <div className="text-gray-600 text-xs">推し活動の支出</div>
+              </div>
+            </div>
+          </div>
+
           <p className="text-center text-gray-600 mb-4 font-medium">
             または、ボタンで操作することもできます
           </p>
