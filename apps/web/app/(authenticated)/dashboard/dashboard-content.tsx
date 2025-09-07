@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDateTime } from '@/lib/utils'
 import { AccountDetailsModal } from '@/components/account-details-modal'
 import { TransactionEditModal } from '@/components/transaction-edit-modal'
+
 import { Loading } from '@/components/ui/loading'
 import { 
   PiggyBank, 
@@ -407,12 +408,20 @@ export function DashboardContent() {
                 <p className="text-sm text-gray-600">健康的な推し活の指標</p>
               </div>
             </div>
-            <button
-              onClick={() => setShowScoreHelp(!showScoreHelp)}
-              className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
-            >
-              <HelpCircle className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => router.push('/analysis')}
+                className="px-4 py-2 text-sm text-gray-600 bg-gray-50 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 rounded-xl border border-gray-200/50"
+              >
+                分析を見る
+              </button>
+              <button
+                onClick={() => setShowScoreHelp(!showScoreHelp)}
+                className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <HelpCircle className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col lg:flex-row items-center gap-8">
@@ -808,6 +817,8 @@ export function DashboardContent() {
           <Loading />
         </div>
       )}
+
+
     </div>
   )
 } 

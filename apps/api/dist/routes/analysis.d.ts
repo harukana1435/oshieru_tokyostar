@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
 import type { Env } from '../index';
 declare const analysisRoute: Hono<Env, {}, "/">;
-export { analysisRoute as analysisRoutes };
+export { analysisRoute };
 //# sourceMappingURL=analysis.d.ts.map

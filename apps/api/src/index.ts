@@ -9,7 +9,7 @@ import { transactionRoutes } from './routes/transactions';
 import { scoreRoutes } from './routes/scores';
 import { rewardRoutes } from './routes/rewards';
 import { dashboardRoutes } from './routes/dashboard';
-import { analysisRoutes } from './routes/analysis';
+import { analysisRoute } from './routes/analysis';
 import { usersRoute } from './routes/users';
 
 export type Env = {
@@ -53,7 +53,7 @@ app.route('/transactions', transactionRoutes);
 app.route('/scores', scoreRoutes);
 app.route('/rewards', rewardRoutes);
 app.route('/dashboard', dashboardRoutes);
-app.route('/analysis', analysisRoutes);
+app.route('/analysis', analysisRoute);
 app.route('/users', usersRoute);
 
 // Error handling
