@@ -143,13 +143,17 @@ export function AnalysisContent() {
       
       if (response.ok) {
         const data = await response.json()
+        console.log('RAG analysis response:', data)
         if (data.success) {
           setRagAnalysis(data.analysis)
         } else {
+          console.error('RAG analysis failed:', data)
           setError(data.error || 'Analysis failed')
         }
       } else {
-        setError('分析の実行に失敗しました')
+        const errorText = await response.text()
+        console.error('RAG analysis HTTP error:', response.status, errorText)
+        setError(`分析の実行に失敗しました (${response.status})`)
       }
     } catch (error) {
       console.error('RAG analysis error:', error)
