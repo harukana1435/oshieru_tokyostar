@@ -441,18 +441,93 @@ export function DashboardContent() {
                   </button>
                   
                   {showScoreDetails && (
-                    <div className="space-y-3 p-4 bg-gray-50/80 rounded-lg">
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">推し活費の割合</span>
-                        <span className="text-sm font-medium">{Math.round(data.latestScore.factors.incomeRatio)}%</span>
+                    <div className="space-y-4 p-4 bg-gray-50/80 rounded-lg">
+                      {/* 基本情報 */}
+                      <div className="grid grid-cols-2 gap-4 mb-4 p-3 bg-white rounded-lg border">
+                        <div className="text-center">
+                          <p className="text-xs text-gray-500 mb-1">月収</p>
+                          <p className="text-lg font-bold text-gray-900">
+                            {data.latestScore?.analysisData?.income ? formatCurrency(data.latestScore.analysisData.income) : '---'}
+                          </p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-xs text-gray-500 mb-1">推し活費用</p>
+                          <p className="text-lg font-bold text-purple-600">
+                            {data.latestScore?.analysisData?.oshiExpense ? formatCurrency(data.latestScore.analysisData.oshiExpense) : '---'}
+                          </p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-xs text-gray-500 mb-1">生活必需品費用</p>
+                          <p className="text-lg font-bold text-green-600">
+                            {data.latestScore?.analysisData?.essentialExpense ? formatCurrency(data.latestScore.analysisData.essentialExpense) : '---'}
+                          </p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-xs text-gray-500 mb-1">余剰金</p>
+                          <p className="text-lg font-bold text-blue-600">
+                            {data.latestScore?.analysisData?.income && data.latestScore?.analysisData?.essentialExpense 
+                              ? formatCurrency(data.latestScore.analysisData.income - data.latestScore.analysisData.essentialExpense)
+                              : '---'}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">余剰資金比率</span>
-                        <span className="text-sm font-medium">{Math.round(data.latestScore.factors.surplusRatio * 100)}%</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">推奨金額からの乖離</span>
-                        <span className="text-sm font-medium">{Math.round(data.latestScore.factors.recommendedDeviation)}%</span>
+
+                      {/* スコア詳細 */}
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-gray-900 text-sm">スコア内訳</h4>
+                        
+                        {/* 収入比率スコア */}
+                        <div className="p-3 bg-white rounded-lg border">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-medium text-gray-700">収入比率スコア</span>
+                            <span className="text-sm font-bold text-gray-900">
+                              {data.latestScore?.breakdown?.incomeRatioScore || 0}点 / 40点
+                            </span>
+                          </div>
+                          <div className="text-xs text-gray-600">
+                            推し活費の割合: {data.latestScore?.factors?.incomeRatio ? `${Math.round(data.latestScore.factors.incomeRatio * 100)}%` : '---'}
+                            <br />
+                            <span className="text-gray-500">
+                              (20%以下: 40点, 21-30%: 30点, 31-40%: 20点, 41%以上: 10点)
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* 余剰金スコア */}
+                        <div className="p-3 bg-white rounded-lg border">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-medium text-gray-700">余剰金スコア</span>
+                            <span className="text-sm font-bold text-gray-900">
+                              {data.latestScore?.breakdown?.surplusScore || 0}点 / 30点
+                            </span>
+                          </div>
+                          <div className="text-xs text-gray-600">
+                            余剰金比率: {data.latestScore?.factors?.surplusRatio ? `${Math.round(data.latestScore.factors.surplusRatio * 100)}%` : '---'}
+                            <br />
+                            <span className="text-gray-500">
+                              (100%以下: 30点, 101-120%: 20点, 121-150%: 10点, 150%超: 0点)
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* 推奨額適合スコア */}
+                        <div className="p-3 bg-white rounded-lg border">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-medium text-gray-700">推奨額適合スコア</span>
+                            <span className="text-sm font-bold text-gray-900">
+                              {data.latestScore?.breakdown?.recommendedAmountScore || 0}点 / 30点
+                            </span>
+                          </div>
+                          <div className="text-xs text-gray-600">
+                            推奨額: {data.latestScore?.analysisData?.recommendedAmount ? formatCurrency(data.latestScore.analysisData.recommendedAmount) : '---'}
+                            <br />
+                            乖離率: {data.latestScore?.factors?.recommendedDeviation ? `${Math.round(data.latestScore.factors.recommendedDeviation)}%` : '---'}
+                            <br />
+                            <span className="text-gray-500">
+                              (+10%以下: 30点, +10-20%: 20点, +20-50%: 10点, +50%超: 0点)
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}

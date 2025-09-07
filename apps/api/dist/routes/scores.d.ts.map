@@ -1,1 +1,1 @@
-{"version":3,"file":"scores.d.ts","sourceRoot":"","sources":["../../src/routes/scores.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,IAAI,EAAE,MAAM,MAAM,CAAC;AAG5B,OAAO,KAAK,EAAE,GAAG,EAAE,MAAM,UAAU,CAAC;AA4JpC,QAAA,MAAM,WAAW,oBAAkB,CAAC;AAwNpC,OAAO,EAAE,WAAW,IAAI,WAAW,EAAE,CAAC"}
+{"version":3,"file":"scores.d.ts","sourceRoot":"","sources":["../../src/routes/scores.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,IAAI,EAAE,MAAM,MAAM,CAAC;AAG5B,OAAO,KAAK,EAAE,GAAG,EAAE,MAAM,UAAU,CAAC;AAgKpC,QAAA,MAAM,WAAW,oBAAkB,CAAC;AA8NpC,OAAO,EAAE,WAAW,IAAI,WAAW,EAAE,CAAC"}

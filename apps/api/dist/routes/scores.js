@@ -137,6 +137,10 @@ function calculateSafetyScoreWithAI(income, oshiExpense, essentialExpense, recom
             essentialExpense,
             recommendedAmount,
             surplus,
+            incomeRatioScore,
+            surplusScore,
+            recommendedAmountScore,
+            totalScore,
             incomeRatioPercent: Math.round(incomeRatio * 100 * 100) / 100,
             surplusRatioValue: surplusRatio === Number.POSITIVE_INFINITY ? 999.99 : Math.round(surplusRatio * 100) / 100,
             deviationPercent: Math.round(deviationRatio * 100) / 100
@@ -236,8 +240,14 @@ scoresRoute.post('/calculate', async (c) => {
             (tx.purpose === 'rent' || tx.purpose === 'other') &&
             tx.accountKind === 'life')
             .reduce((sum, tx) => sum + tx.amount, 0);
-        // 推奨推し活口座入金額（収入の20%）
-        const recommendedAmount = salaryAmount * 0.2;
+        // 推奨推し活口座入金額の計算
+        // (1) 収入比率ベース: 収入の25%
+        const recommendedAmountA = salaryAmount * 0.25;
+        // (2) 余剰金ベース: 余剰金の80%
+        const surplus = salaryAmount - essentialExpenses;
+        const recommendedAmountB = surplus * 0.8;
+        // (3) 推奨額は両方の最小値
+        const recommendedAmount = Math.min(recommendedAmountA, recommendedAmountB);
         const income = salaryAmount;
         const oshiExpense = oshiExpenses;
         const essentialExpense = essentialExpenses;
